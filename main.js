@@ -1,7 +1,7 @@
 var myApp = angular.module("myApp", ['ui.calendar'])
 
 myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
-var date = new Date();
+    var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
@@ -9,27 +9,9 @@ var date = new Date();
     /* event source that contains custom events on the scope */
     $scope.events = [];
 
-    /* event source that calls a function on every view switch */
-    $scope.eventsF = function (start, end, timezone, callback) {
-      var s = new Date(start).getTime() / 1000;
-      var e = new Date(end).getTime() / 1000;
-      var m = new Date(start).getMonth();
-      var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-      callback(events);
-    };
-
-    $scope.calEventsExt = {
-       color: '#f00',
-       textColor: 'yellow',
-       events: [ 
-          {type:'party',title: 'Lunch',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Lunch 2',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-        ]
-    };
     /* alert on eventClick */
     $scope.alertOnEventClick = function( date, jsEvent, view){
-        alert(' was clicked ');
+        $scope.alertMessage = ('Date: ' + date.title);
     };
     /* alert on Drop */
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
@@ -39,30 +21,19 @@ var date = new Date();
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
        $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
     };
-    /* add and removes an event source of choice */
-    $scope.addRemoveEventSource = function(sources,source) {
-      var canAdd = 0;
-      angular.forEach(sources,function(value, key){
-        if(sources[key] === source){
-          sources.splice(key,1);
-          canAdd = 1;
-        }
-      });
-      if(canAdd === 0){
-        sources.push(source);
-      }
-    };
+
     /* add custom event*/
     $scope.addEvent = function() {
       $scope.events.push({
         title: $scope.title,
-        start: new Date($scope.y, $scope.m, $scope.d1),
-        end: new Date($scope.y, $scope.m, $scope.d2),
+        start: new Date($scope.y, $scope.m - 1, $scope.d1),
+        end: new Date($scope.y, $scope.m - 1, $scope.d2),
         stick: true
 
       });
       callback(events);
       console.log($scope.events)
+      $scope.clickDate = 0;
     };
     /* remove event */
     $scope.remove = function(index) {
@@ -90,7 +61,7 @@ var date = new Date();
         height: 450,
         editable: true,
         header:{
-          left: 'title month basicWeek',
+          left: 'title month agendaWeek',
           center: '',
           right: 'today prev,next'
         },
@@ -104,5 +75,4 @@ var date = new Date();
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
     $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-    console.log($scope.events);
 });
