@@ -5,43 +5,39 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
     /* event source that contains custom events on the scope */
     $scope.events = [];
 
+    /* event sources array */
+    $scope.eventSources = [$scope.events];
+
     /* alert on eventClick */
     $scope.alertOnEventClick = function( date, jsEvent, view){
         $scope.alertMessage = ('Date: ' + date.start.i);
         console.log(date);
     };
 
-    /* add custom event*/
-    //the index for months starts at 0
+    /* Create a function add events here
+    Remember indices start at 0 eg. January is stored as 0 inside their array  */
     $scope.addEvent = function() {
-      $scope.events.push({
-        title: $scope.title,
-        start: new Date($scope.year, $scope.month - 1, $scope.startDate, $scope.startHour),
-        end: new Date($scope.year, $scope.month - 1, $scope.finishDate, $scope.finishHour),
-        stick: true
-      });
-      $scope.clickDate = 0;
+
     };
     
+    /* Create a function to remove events here */
     $scope.remove = function(index) {
-      $scope.events.splice(index,1);
+
     };
     
-    /* config object */
+    /* Configure your calendar object here
+    Define the variables for what you want shown */
     $scope.uiConfig = {
       calendar:{
-        height: 450,
-        editable: true,
+        height: 
+        editable: 
         header:{
-          left: 'title month agendaWeek',
-          center: '',
-          right: 'today prev,next'
+          left: 
+          center:
+          right:
         },
         eventClick: $scope.alertOnEventClick,
-        eventMouseover: $scope.hoverEvent
       }
     };
 
-    /* event sources array*/
-    $scope.eventSources = [$scope.events];
 });

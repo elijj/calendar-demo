@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
-        <!-- jquery, moment, and angular have to get included before fullcalendar -->
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-        <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-        <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
+        <!-- Insert libraries here -->
+
         <script type="text/javascript" src="main.js"></script>
     </head>
 
     <body ng-app="myApp" ng-controller="MyController">
         <div>
+            <!-- This form contains some of the variables you can manipulate with FullCalendar. -->
             <form>
                 <input ng-model="title" type="text" placeholder="Title">
                 <input ng-model="year" type="number" placeholder="Year">
@@ -22,17 +17,19 @@
                 <input ng-model="startHour" type="number" placeholder="Start Hour" max="24">
                 <input ng-model="finishDate" type="number" placeholder="Finish Date">
                 <input ng-model="finishHour" type="number" placeholder="Finish Hour" max="24">
+                <!-- This button adds the events to your callendar -->
                 <button ng-click="addEvent()">Add Event</button>
             </form>
 
-            <p>{{alertMessage}}</p>
+            <!-- Use this to check if your event data is saving and being read -->
+            <h2>{{alertMessage}}</h2>
         </div>
         
-        <div ng-repeat="e in events">
-            <input ng-model="e.title">
-            <button type="submit" ng-click="remove($index)">REMOVE</button>
-        </div>
+        <!-- Use angular to display all your event sources in a div. Make a button inside to remove the events. -->
+
         
-        <div ui-calendar="uiConfig.calendar" ng-model="eventSources">       
+        <!-- This is where your callendar will display -->
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+
     </body>
 </html>
