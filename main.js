@@ -23,17 +23,9 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
       $scope.clickDate = 0;
     };
     
-    $scope.hoverEvent = function(event, jsEvent, view) {
-        $scope.alertMessage = "hover"
-
-    }
-    
-//    $scope.eventRender = function( event, element, view ) { 
-//        element.attr({'tooltip': event.title,
-//                     'tooltip-append-to-body': true});
-//        $compile(element)($scope);
-//    };
-
+    $scope.remove = function(index) {
+      $scope.events.splice(index,1);
+    };
     
     /* config object */
     $scope.uiConfig = {
@@ -46,8 +38,7 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
           right: 'today prev,next'
         },
         eventClick: $scope.alertOnEventClick,
-        eventMouseover: $scope.hoverEvent,
-        eventRender: $scope.eventRender  
+        eventMouseover: $scope.hoverEvent
       }
     };
 

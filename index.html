@@ -24,9 +24,15 @@
                 <input ng-model="finishHour" type="number" placeholder="Finish Hour" max="24">
                 <button ng-click="addEvent()">Add Event</button>
             </form>
+
             <p>{{alertMessage}}</p>
         </div>
-        <div ui-calendar="uiConfig.calendar" ng-model="eventSources">
         
+        <div ng-repeat="e in events">
+            <input ng-model="e.title">
+            <button type="submit" ng-click="remove($index)">REMOVE</button>
+        </div>
+        
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources">       
     </body>
 </html>
