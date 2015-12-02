@@ -1,28 +1,14 @@
 var myApp = angular.module("myApp", ['ui.calendar'])
 
 myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
 
     /* event source that contains custom events on the scope */
     $scope.events = [];
 
     /* alert on eventClick */
     $scope.alertOnEventClick = function( date, jsEvent, view){
-        $scope.alertMessage = ('Date: ' + date.title);
+        $scope.alertMessage = ('Date: ' + date.start.i);
         console.log(date);
-    };
-    
-    /* alert on Drop */
-     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-       $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
-    };
-    
-    /* alert on Resize */
-    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-       $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
     };
 
     /* add custom event*/
@@ -30,12 +16,24 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
     $scope.addEvent = function() {
       $scope.events.push({
         title: $scope.title,
-        start: new Date($scope.y, $scope.m - 1, $scope.d1),
-        end: new Date($scope.y, $scope.m - 1, $scope.d2),
+        start: new Date($scope.year, $scope.month - 1, $scope.startDate, $scope.startHour),
+        end: new Date($scope.year, $scope.month - 1, $scope.finishDate, $scope.finishHour),
         stick: true
       });
       $scope.clickDate = 0;
     };
+    
+    $scope.hoverEvent = function(event, jsEvent, view) {
+        $scope.alertMessage = "hover"
+
+    }
+    
+//    $scope.eventRender = function( event, element, view ) { 
+//        element.attr({'tooltip': event.title,
+//                     'tooltip-append-to-body': true});
+//        $compile(element)($scope);
+//    };
+
     
     /* config object */
     $scope.uiConfig = {
@@ -48,9 +46,8 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
           right: 'today prev,next'
         },
         eventClick: $scope.alertOnEventClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize,
-        eventRender: $scope.eventRender
+        eventMouseover: $scope.hoverEvent,
+        eventRender: $scope.eventRender  
       }
     };
 
