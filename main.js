@@ -10,7 +10,7 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
 
     /* alert on eventClick */
     $scope.alertOnEventClick = function( date, jsEvent, view){
-        $scope.alertMessage = ('Date: ' + date.start.i);
+        $scope.alertMessage = ('Date: ' + date.title);
         console.log(date);
     };
 
