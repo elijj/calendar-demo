@@ -17,24 +17,29 @@ myApp.controller('MyController', function($scope, $compile, uiCalendarConfig) {
     /* Create a function add events here
     Remember indices start at 0 eg. January is stored as 0 inside their array  */
     $scope.addEvent = function() {
-
+        $scope.events.push({
+            title : $scope.title,
+            start : new Date($scope.year,$scope.month - 1,$scope.startDate,$scope.startHour),
+            end : new Date($scope.year,$scope.month - 1,$scope.startDate,$scope.startHour),
+            stick : true
+        })
     };
     
     /* Create a function to remove events here */
     $scope.remove = function(index) {
-
+        $scope.events.splice(index,1);
     };
     
     /* Configure your calendar object here
     Define the variables for what you want shown */
     $scope.uiConfig = {
       calendar:{
-        height: 
-        editable: 
+        height: 450,
+        editable: true,
         header:{
-          left: 
-          center:
-          right:
+          left: 'title month',
+          center: '',
+          right: ''
         },
         eventClick: $scope.alertOnEventClick,
       }
